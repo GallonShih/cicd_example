@@ -4,6 +4,7 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 def hello(name) -> str:
+    # do somethine
     return f"Hello {name}."
 
 @app.get("/v1/hello",
