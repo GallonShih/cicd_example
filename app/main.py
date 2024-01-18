@@ -3,6 +3,9 @@ from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
+def hello(name) -> str:
+    return f"Hello {name}."
+
 @app.get("/v1/hello",
             description='Say Hello to you.',
             responses={
@@ -10,8 +13,9 @@ app = FastAPI()
                         500: {"description": 'Internal server error'}
             }
         )
-async def hello(name: str):
-    return JSONResponse(status_code=200, content={"data": f"Hello {name}."})
+async def get(name: str):
+    hello_msg = hello(name)
+    return JSONResponse(status_code=200, content={"data": hello_msg})
 
 
 if __name__ == "__main__":
