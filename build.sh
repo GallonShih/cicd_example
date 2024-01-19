@@ -4,7 +4,7 @@ IMAGE_NAME=$1
 IMAGE_TAG=$2
 
 if [ "${IMAGE_NAME}" == "" ]; then
-  echo "Error: Need a image namg."
+  echo "Error: Need a image name."
   exit 1
 fi
 
