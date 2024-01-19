@@ -22,11 +22,3 @@ else
     echo "Error: Docker build failed"
     exit 1
 fi
-
-
-if docker push ${docker_image}; then
-    echo "Push Docker Image: ${docker_image}"
-else
-    echo "Error: Docker push failed"
-    exit 1
-fi
