@@ -53,3 +53,5 @@ jobs:
       - name: Run unit-test
         run: |
           echo "Run unit-test"
+          lowercase_image_name=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
+          ./test.sh $lowercase_image_name ${{ env.IMAGE_TAG }}
