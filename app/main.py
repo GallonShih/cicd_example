@@ -19,7 +19,7 @@ async def get_hello(name: str):
     return JSONResponse(status_code=200, content={"data": hello_msg})
 
 def age():
-    return 18
+    return 28
 
 @app.get("/v1/age",
             description='Get age',
