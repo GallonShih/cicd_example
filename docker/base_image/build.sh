@@ -16,7 +16,6 @@ echo "docker_image: ${docker_image}"
 
 DOCKERFILE_DIR="."
 
-# 尝试构建 Docker 映像并捕获可能的错误
 if docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERFILE_DIR}; then
     echo "Built Docker Image: ${IMAGE_NAME}:${IMAGE_TAG}"
 else
