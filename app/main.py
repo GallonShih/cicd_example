@@ -29,8 +29,8 @@ def age():
             }
         )
 async def get_age():
-    age = age()
-    return JSONResponse(status_code=200, content={"data": age})
+    age_value = age()
+    return JSONResponse(status_code=200, content={"data": age_value})
 
 if __name__ == "__main__":
     import uvicorn
