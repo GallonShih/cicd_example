@@ -37,7 +37,7 @@ jobs:
         run: |
           echo "Build and push Docker image to Docker Hub"
           lowercase_image_name=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
-          ./build.sh $lowercase_image_name:${{ env.IMAGE_TAG }}
+          ./build.sh $lowercase_image_name ${{ env.IMAGE_TAG }}
   
   test:
 
