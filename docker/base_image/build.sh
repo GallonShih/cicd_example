@@ -16,9 +16,17 @@ echo "docker_image: ${docker_image}"
 
 DOCKERFILE_DIR="."
 
-if docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERFILE_DIR}; then
-    echo "Built Docker Image: ${IMAGE_NAME}:${IMAGE_TAG}"
+if docker build -t ${docker_image} ${DOCKERFILE_DIR}; then
+    echo "Built Docker Image: ${docker_image}"
 else
     echo "Error: Docker build failed"
+    exit 1
+fi
+
+
+if docker push ${docker_image}; then
+    echo "Push Docker Image: ${docker_image}"
+else
+    echo "Error: Docker push failed"
     exit 1
 fi
