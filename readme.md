@@ -22,7 +22,7 @@ Before you get started, make sure you have the following:
     ![](./doc/images/fork-02.png)
 
 
-2. **Set Secrets in GitHub**
+2. **Set Secrets & enable Actions in GitHub**
     - Create secrets for CI/CD Actions
 
     ![](./doc/images/Set-secret-01.png)
@@ -30,6 +30,10 @@ Before you get started, make sure you have the following:
     - Add secrets: `DOCKERHUB_USERNAME` & `DOCKERHUB_PASSWORD`
 
     ![](./doc/images/Set-secret-02.png)
+
+    - Enable Actions for CI/CD
+
+    ![](./doc/images/enable-actions-01.png)
 
 
 3. **Clone to Your Local Machine**
@@ -53,7 +57,7 @@ Before you get started, make sure you have the following:
 
     ```python
     def gender():
-    return 'Man'
+        return 'Man'
 
     @app.get("/v1/gender",
                 description='Get gender',
