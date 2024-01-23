@@ -1,10 +1,18 @@
 #!/bin/bash
 
-IMAGE_NAME=$1
-IMAGE_TAG=$2
+DOCKERHUB_USERNAME=$1
+FULL_REPO_NAME=$2
+IMAGE_TAG=$3
 
-if [ "${IMAGE_NAME}" == "" ]; then
-  echo "Error: Need a image name."
+REPO_NAME=$(echo "${FULL_REPO_NAME}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+
+if [ "${DOCKERHUB_USERNAME}" == "" ]; then
+  echo "Error: Need a docker username."
+  exit 1
+fi
+
+if [ "${REPO_NAME}" == "" ]; then
+  echo "Error: Need a repository name."
   exit 1
 fi
 
@@ -13,19 +21,19 @@ if [ "${IMAGE_TAG}" == "" ]; then
   exit 1
 fi
 
-docker_image="${IMAGE_NAME}:${IMAGE_TAG}"
+docker_image="${DOCKERHUB_USERNAME}/${REPO_NAME}:${IMAGE_TAG}"
 echo "docker_image: ${docker_image}"
 
 DOCKERFILE_DIR="."
 
-if docker build -t ${docker_image} ${DOCKERFILE_DIR}; then
+if docker build -t "${docker_image}" "${DOCKERFILE_DIR}"; then
     echo "Built Docker Image: ${docker_image}"
 else
     echo "Error: Docker build failed"
     exit 1
 fi
 
-if docker push ${docker_image}; then
+if docker push "${docker_image}"; then
     echo "Push Docker Image: ${docker_image}"
 else
     echo "Error: Docker push failed"
