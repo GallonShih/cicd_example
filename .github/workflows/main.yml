@@ -9,6 +9,10 @@ on:
 
   push:
     branches: [ "master" ]
+    paths:
+      - 'app/**'
+      - 'tests/**'
+      - '.github/workflows/**'
 
 env:
   # github.repository as <account>/<repo>
