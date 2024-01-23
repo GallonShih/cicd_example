@@ -13,24 +13,83 @@ Before you get started, make sure you have the following:
 ## :rocket: Getting Started
 
 1. **Fork or Copy the Repository**
-   - Fork this repository or copy the codebase to your own GitHub account.
+    - Click the `Fork` button.
 
-2. **Clone to Your Local Machine**
-   - Clone the repository to your local development environment using Git.
+    ![](./doc/images/fork-01.png)
 
-3. **Repository Description**
-   - This repository contains a FastAPI application with a set of predefined APIs and unit tests.
+    - Set repository's name & click `Create fork` button.
 
-4. **Making Changes in `app/` Directory**
-   - **Add a New API**: You can add new API endpoints to the FastAPI application.
-   - **Edit an Existing API**: Be aware that editing an existing API might cause the CI/CD pipeline to fail if the changes do not pass the unit tests.
+    ![](./doc/images/fork-02.png)
 
-5. **Push Changes to GitHub**
-   - Commit and push your changes to GitHub. This will trigger the CI/CD pipeline defined in GitHub Actions.
 
-6. **Check the CI/CD Pipeline**
-   - Go to the 'Actions' tab in your GitHub repository to view the status and logs of the CI/CD pipeline.
+2. **Set Secrets in GitHub**
+    - Create secrets for CI/CD Actions
 
-7. **Launch the API Server(Optional)**
+    ![](./doc/images/Set-secret-01.png)
+
+    - Add secrets: `DOCKERHUB_USERNAME` & `DOCKERHUB_PASSWORD`
+
+    ![](./doc/images/Set-secret-02.png)
+
+
+3. **Clone to Your Local Machine**
+    - Clone the repository to your local development environment using Git.
+
+    ```linux
+    git clone https://github.com/{Owner_name}/cicd_example.git
+    ```
+
+
+4. **Repository Description**
+    - FastAPI application in [app/main.py](./app/main.py)
+
+    - Unit-test in [tests/](./tests/)
+
+    - CI/CD workflow [main.yaml](./.github/workflows/main.yml)
+
+
+5. **Making Changes in [app/main.py](./app/main.py)**
+    - **Add a New API**: You can add new API endpoints to the FastAPI application.
+
+    ```python
+    def gender():
+    return 'Man'
+
+    @app.get("/v1/gender",
+                description='Get gender',
+                responses={
+                            400: {"description": 'get_gender fail'},
+                            500: {"description": 'Internal server error'}
+                }
+            )
+    async def get_gender():
+        gender_value = gender()
+        return JSONResponse(status_code=200, content={"data": gender_value})
+    ```
+    - **Edit an Existing API**: Be aware that editing an existing API might cause the CI/CD pipeline to fail if the changes do not pass the unit tests.
+
+    ```python
+    def age():
+        return 28 # original 18
+    ```
+
+
+6. **Push Changes to GitHub**
+    - Commit and push your changes to GitHub. This will trigger the CI/CD pipeline defined in GitHub Actions.
+
+    ```linux
+    git add .
+    git commit -m "{your commit message}"
+    git push
+    ```
+
+
+7. **Check the CI/CD Pipeline**
+    - Go to the 'Actions' tab in your GitHub repository to view the status and logs of the CI/CD pipeline.
+
+    ![](./doc/images/cicd-workflow-01.png)
+
+
+8. **Launch the API Server(Optional)**
 
 
