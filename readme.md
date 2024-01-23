@@ -95,5 +95,22 @@ Before you get started, make sure you have the following:
 
 
 8. **Launch the API Server(Optional)**
+    - Docker & Docker-Compose installed on your machine.
+    - Go to your [DockerHub](https://hub.docker.com/) & sign in.
+    - Copy the image name with tag and paste it to [docker-compose.yaml](./docker-compose.yaml)
 
+    ![](./doc/images/image-tag-01.png)
 
+    ![](./doc/images/docker-compose-01.png)
+
+    - Launch api server
+    ```linux
+    docker-compose up -d
+    ```
+
+    - Go to [localhost:8000/docs](http://localhost:8000/docs)
+
+    - Close api server
+    ```linux
+    docker-compose down
+    ```
