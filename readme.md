@@ -2,6 +2,8 @@
 
 This repository demonstrates a simple example of CI/CD (Continuous Integration/Continuous Deployment) using GitHub Actions. We have a basic FastAPI application that serves as an API server. The focus is on illustrating how to set up a CI/CD pipeline to automatically integrate your codebase and run unit tests for your functions.
 
+![](./doc/images/cicd-01.png)
+
 ## :star: Prerequisites
 
 Before you get started, make sure you have the following:
