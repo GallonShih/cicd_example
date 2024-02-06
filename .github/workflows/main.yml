@@ -62,3 +62,17 @@ jobs:
         run: |
           echo "Run unit-test"
           ./test.sh ${{ secrets.DOCKERHUB_USERNAME }} ${{ env.REPO_NAME }} ${{ env.IMAGE_TAG }}
+
+  deploy:
+
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} "echo 'Hello World'"
