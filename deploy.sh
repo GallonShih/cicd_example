@@ -13,10 +13,15 @@ rm $OUTPUT_FILE.tmp
 echo "Updated docker-compose.yaml:"
 cat $OUTPUT_FILE
 
-# SSH to EC2, execute docker-compose down
-if ! ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST "docker-compose -f docker-compose.yaml down"; then
-    echo "Failed to execute docker-compose down. Exiting."
-    exit 1
+# SSH to EC2, attempt to execute docker-compose down
+STATUS=$(ssh -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST "docker-compose -f docker-compose.yaml down" 2>&1)
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -eq 0 ]; then
+    echo "Successfully executed docker-compose down."
+else
+    echo "Failed to execute docker-compose down. Status: $STATUS"
+    echo "Continuing despite the failure..."
 fi
 
 # Copy docker-compose.yaml to EC2
