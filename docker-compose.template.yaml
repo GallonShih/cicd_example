@@ -5,3 +5,5 @@ services:
     image: gallonshih/cicd_example
     ports:
       - "8000:8000"
+    environment:
+      - IMAGE=gallonshih/cicd_example

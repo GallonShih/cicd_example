@@ -76,24 +76,20 @@ jobs:
         with:
           name: image-info
           path: ./
+      
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Make docker-compose
+      - name: Make docker-compose and Deploy
         run: |
           echo "Make docker-compose.yaml"
           IMAGE_INFO=$(cat image_info.txt)
-          ./deploy.sh $IMAGE_INFO
+          ./deploy.sh $IMAGE_INFO  ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }}
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: docker-compose-yaml
           path: docker-compose.yaml
-
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST_NAME }} "echo 'Hello World'"
