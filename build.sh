@@ -40,4 +40,4 @@ else
     exit 1
 fi
 
-echo "docker_image=${docker_image}" > image_info.txt
+echo "${docker_image}" > image_info.txt
