@@ -4,13 +4,40 @@ This repository demonstrates a simple example of CI/CD (Continuous Integration/C
 
 ![](./doc/images/cicd-01.png)
 
+## :running: Workflow
+
+![](./doc/images/workflow-01.png)
+
 ## :star: Prerequisites
 
 Before you get started, make sure you have the following:
 - Git installed on your machine.
-- A GitHub account.
-- A Docker Hub account.
+- GitHub and Docker Hub accounts.
 - Basic knowledge of Python programming.
+- Configured AWS EC2 Instance (see below for setup details).
+    - [Amazon Linux 2 AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html)
+    - Install docker
+    ```linux
+    sudo yum update
+    sudo yum install docker
+    sudo usermod -a -G docker ec2-user
+    sudo systemctl enable docker
+    sudo systemctl start docker
+    sudo systemctl status docker
+    ```
+    - Install docker-compose
+    ```linux
+    sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+    sudo chmod +x /usr/local/bin/docker-compose
+
+    sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    ```
+    - Set inbound rules
+        - Type: Custom TCP
+        - Protocol: TCP
+        - Port Range: 8000
+        - Source: Anywhere (0.0.0.0/0, ::/0)
 
 ## :rocket: Getting Started
 
@@ -29,9 +56,9 @@ Before you get started, make sure you have the following:
 
     ![](./doc/images/Set-secret-01.png)
 
-    - Add secrets: `DOCKERHUB_USERNAME` & `DOCKERHUB_PASSWORD`
+    - Add secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_PASSWORD`, `EC2_HOST_NAME`, `EC2_USER_NAME` & `SSH_PRIVATE_KEY`
 
-    ![](./doc/images/Set-secret-02.png)
+    ![](./doc/images/Set-secret-03.png)
 
     - Enable Actions for CI/CD
 
@@ -95,15 +122,20 @@ Before you get started, make sure you have the following:
 
     ![](./doc/images/cicd-workflow-01.png)
 
+8. **Check API Server in AWS EC2**
+    - Go to address: http://{ Public IPv4 address }:8000/docs
 
-8. **Launch the API Server(Optional)**
+    ![](./doc/images/ec2-address-01.png)
+
+
+9. **Launch the API Server in Local(Optional)**
     - Docker & Docker-Compose installed on your machine.
     - Go to your [DockerHub](https://hub.docker.com/) & sign in.
     - Copy the image name with tag and paste it to [docker-compose.yaml](./docker-compose.yaml)
 
     ![](./doc/images/image-tag-01.png)
 
-    ![](./doc/images/docker-compose-01.png)
+    ![](./doc/images/docker-compose-02.png)
 
     - Launch api server
     ```linux
